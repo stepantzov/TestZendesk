@@ -8,12 +8,13 @@ import org.testng.annotations.Parameters;
 
 public class TestConditions extends DriverSetup {
     @BeforeClass
-    @Parameters("browserType")
-    public static void initializeTestBaseSetup(String browserType) {
+    public static void initializeTestBaseSetup() {
+        String browserType = System.getProperty("browserType");
+
         try {
             DriverSetup.initDriver(URL, browserType);
         } catch (Exception e) {
-            System.out.println("Error....." + e.getLocalizedMessage());
+            System.out.println("ERROR: " + e.getLocalizedMessage());
         }
     }
 
