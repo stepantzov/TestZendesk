@@ -1,7 +1,12 @@
 package com.zendesk.coreFunctions;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class DriverSetup extends GlobalDefinitions {
     protected static WebDriver driverInstance = null;
@@ -10,14 +15,42 @@ public class DriverSetup extends GlobalDefinitions {
         if (driverInstance == null) {
             switch (browserType) {
                 case "chrome":
-                    System.out.println("Launching Chrome driver with new profile...");
-                    System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH + "chromedriver.exe");
+                    System.out.println("Launching Chrome driver with new profile.");
+
+                    WebDriverManager.chromedriver().setup();
+
                     driverInstance = new ChromeDriver();
                     break;
-                    //here some other browser can be added easily
+
+                case "firefox":
+                    System.out.println("Launching Firefox driver with new profile.");
+
+                    WebDriverManager.firefoxdriver().setup();
+
+                    driverInstance = new FirefoxDriver();
+                    break;
+
+                case "explorer":
+                    System.out.println("Launching Explorer driver with new profile.");
+
+                    WebDriverManager.iedriver().setup();
+
+                    DesiredCapabilities caps = DesiredCapabilities.internetExplorer();
+                    caps.setCapability("ignoreZoomSetting", true);
+                    driverInstance = new InternetExplorerDriver(caps);
+
+                    break;
+
+                case "phantomjs":
+                    System.out.println("Launching PhantomJSDriver driver.");
+
+                    WebDriverManager.phantomjs().setup();
+
+                    driverInstance = new PhantomJSDriver();
+                    break;
 
                 default:
-                    System.out.println("Invalid browser type specified. Please select chrome or firefox.");
+                    System.out.println("Invalid browser type specified.");
             }
 
             driverInstance.manage().window().maximize();
