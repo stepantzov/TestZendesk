@@ -11,6 +11,7 @@ public class Login extends LoginPageActions {
     public static void logWithCorrectTrialCredentials(){
         LoginPageActions.setLoginFld(LOGIN);
         LoginPageActions.setPasswordFld(PASSWORD);
+
         LoginPageActions.pressSignInBtn();
     }
 }

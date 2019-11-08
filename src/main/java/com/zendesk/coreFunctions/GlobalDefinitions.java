@@ -13,6 +13,6 @@ public class GlobalDefinitions {
     protected static final String XPATH = "xpath";
     protected static final String CSS = "css";
 
-    protected static final String LOGIN = "stepantzov@gmail.com";
-    protected static final String PASSWORD = "123ZZrorZ";
+    protected static final String LOGIN = System.getProperty("site.login");
+    protected static final String PASSWORD = System.getProperty("site.password");
 }
