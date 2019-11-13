@@ -1,56 +1,82 @@
 package com.zendesk.userActions;
 
 import com.zendesk.pageActions.LeadPageActions;
+import com.zendesk.pageActions.LoginPageActions;
 import com.zendesk.pageActions.MainPageActions;
 import com.zendesk.pageActions.SettingsPageActions;
 import com.zendesk.pages.LeadPage;
 import com.zendesk.pages.SettingsPage;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
-public class User extends MainPageActions {
-    protected User(WebDriver driver) {
-        super(driver);
+import static com.zendesk.coreFunctions.GlobalDefinitions.LOGIN;
+import static com.zendesk.coreFunctions.GlobalDefinitions.PASSWORD;
+
+@Component
+@ComponentScan("com.zendesk")
+public class User {
+    @Autowired
+    MainPageActions mainPageActions;
+
+    @Autowired
+    LeadPageActions leadPageActions;
+
+    @Autowired
+    SettingsPageActions settingsPageActions;
+
+    @Autowired
+    LoginPageActions loginPageActions;
+
+    @Autowired
+    SettingsPage settingsPage;
+
+    @Autowired
+    LeadPage leadPage;
+
+    public void createAndViewNewLead(String firstName, String lastName) {
+        mainPageActions.pressAddMenuBtn();
+        mainPageActions.addItemNamed("Lead");
+
+        mainPageActions.fillFirstName(firstName);
+        mainPageActions.fillLastName(lastName);
+
+        mainPageActions.clickSaveAndViewBtn();
     }
 
-    public static void createAndViewNewLead(String firstName, String lastName) {
-        MainPageActions.pressAddMenuBtn();
-        MainPageActions.addItemNamed("Lead");
+    public String getCreatedLeadTitle() {
 
-        MainPageActions.fillFirstName(firstName);
-        MainPageActions.fillLastName(lastName);
-
-        MainPageActions.clickSaveAndViewBtn();
+        return leadPageActions.getLeadTitle();
     }
 
-    public static String getCreatedLeadTitle() {
-
-        return LeadPageActions.getLeadTitle();
+    public Boolean verifyIfLeadStatusCorrect() {
+        return StringUtils.equals(leadPageActions.getLeadStatus(), "New");
     }
 
-    public static Boolean verifyIfLeadStatusCorrect() {
-        return StringUtils.equals(LeadPageActions.getLeadStatus(), "New");
-    }
-
-    public static void openLeadStatusesTab() {
-        SettingsPage settingsPage = new SettingsPage();
+    public void openLeadStatusesTab() {
         settingsPage.navigateToPageUrl();
-
-        SettingsPageActions.openLeadStatusesTab();
+        settingsPageActions.openLeadStatusesTab();
     }
 
-    public static void changeTheExistingLeadStatus(String newLeadStatusName) {
+    public void changeTheExistingLeadStatus(String newLeadStatusName) {
         openLeadStatusesTab();
 
-        SettingsPageActions.pressEditExistingLeadStatus();
-        SettingsPageActions.fillNewLeadStatusName(newLeadStatusName);
-        SettingsPageActions.pressSaveNewLeadStatusName();
+        settingsPageActions.pressEditExistingLeadStatus();
+        settingsPageActions.fillNewLeadStatusName(newLeadStatusName);
+        settingsPageActions.pressSaveNewLeadStatusName();
     }
 
-    public static boolean verifyIfChangedLeadStatusCorrect(String updatedStatusName) {
-        LeadPage leadPage = new LeadPage();
+    public boolean verifyIfChangedLeadStatusCorrect(String updatedStatusName) {
         leadPage.navigateToPageUrl();
 
-        return LeadPageActions.verifyUpdatedLeadStatusPresent(updatedStatusName);
+        return leadPageActions.verifyUpdatedLeadStatusPresent(updatedStatusName);
+    }
+
+    public void logToZendeskWithCorrectCredentials() {
+        loginPageActions.setLoginFld(LOGIN);
+        loginPageActions.setPasswordFld(PASSWORD);
+
+        loginPageActions.pressSignInBtn();
     }
 }

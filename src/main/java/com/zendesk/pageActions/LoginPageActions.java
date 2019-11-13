@@ -1,24 +1,19 @@
 package com.zendesk.pageActions;
 
 import com.zendesk.pages.LoginPage;
-import org.openqa.selenium.WebDriver;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LoginPageActions extends LoginPage {
-    private static WebDriver driver;
-
-    protected LoginPageActions(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    protected static void setLoginFld(String loginValue) {
+    public void setLoginFld(String loginValue) {
         sendKeys(loginEnterFld(), loginValue);
     }
 
-    protected static void setPasswordFld(String passwordValue) {
+    public void setPasswordFld(String passwordValue) {
         sendKeys(passwordEnterFld(), passwordValue);
     }
 
-    protected static void pressSignInBtn() {
+    public void pressSignInBtn() {
         elementClick(signInBtn());
     }
 }

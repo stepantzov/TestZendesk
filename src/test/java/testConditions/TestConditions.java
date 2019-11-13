@@ -1,25 +1,35 @@
 package testConditions;
 
 import com.zendesk.coreFunctions.DriverSetup;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-public class TestConditions extends DriverSetup {
+import static com.zendesk.coreFunctions.GlobalDefinitions.SITE_URL;
+
+public class TestConditions extends AbstractTestNGSpringContextTests {
+
+    @Autowired
+    DriverSetup driverSetup;
+
     @BeforeClass
-    public static void initializeTestBaseSetup() {
+    public void initializeTestBaseSetup() {
         String browserType = System.getProperty("browserType").toLowerCase();
 
         try {
-            DriverSetup.initDriver(URL, browserType);
+            driverSetup.initDriver(SITE_URL, browserType);
         } catch (Exception e) {
             System.out.println("ERROR: " + e.getLocalizedMessage());
         }
     }
 
     @AfterClass
-    public static void tearDown() {
+    public void tearDown() {
         System.out.println("Closing browser. ");
-        driverInstance.quit();
-        driverInstance = null;
+
+        driverSetup.getDriverInstance().quit();
+        driverSetup.setDriverInstance(null);
     }
 }

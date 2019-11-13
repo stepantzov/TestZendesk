@@ -1,18 +1,16 @@
 package com.zendesk.coreFunctions;
 
-import com.zendesk.utils.Properties;
+import com.zendesk.utils.PropertiesReader;
 
 public class GlobalDefinitions {
-    protected static final String CHROME_DRIVER_PATH = System.getProperty("user.dir").concat("\\drivers\\chromeDriver\\");
+    public static final String SITE_URL = PropertiesReader.get("base.site.url");
 
-    protected static final String URL = Properties.get("base.site.url");
+    public static final int DELAY = 60;
+    public static final int IMPLICITDELAY = 90;
 
-    protected static final int DELAY = 60;
-    protected static final int IMPLICITDELAY = 90;
+    public static final String XPATH = "xpath";
+    public static final String CSS = "css";
 
-    protected static final String XPATH = "xpath";
-    protected static final String CSS = "css";
-
-    protected static final String LOGIN = System.getProperty("site.login");
-    protected static final String PASSWORD = System.getProperty("site.password");
+    public static final String LOGIN = System.getProperty("site.login");
+    public static final String PASSWORD = System.getProperty("site.password");
 }

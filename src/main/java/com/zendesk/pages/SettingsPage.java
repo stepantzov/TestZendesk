@@ -1,45 +1,50 @@
 package com.zendesk.pages;
 
 import com.zendesk.coreFunctions.ActionsSetup;
-import com.zendesk.utils.Properties;
+import com.zendesk.coreFunctions.DriverSetup;
+import com.zendesk.utils.PropertiesReader;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import static com.zendesk.coreFunctions.GlobalDefinitions.DELAY;
+import static com.zendesk.coreFunctions.GlobalDefinitions.XPATH;
+
+@Component
 public class SettingsPage extends ActionsSetup implements Page {
     private static final String settingsPath = "/settings";
     private static final String leadsSettingPath = "/leads";
 
+    public SettingsPage() {
+    }
+
+    @Autowired
+    DriverSetup driverSetup;
+
     @Override
     public void navigateToPageUrl() {
-        String fullPageUrl = Properties.get("base.site.url").concat(settingsPath).concat(leadsSettingPath);
+        String fullPageUrl = PropertiesReader.get("base.site.url").concat(settingsPath).concat(leadsSettingPath);
 
-        driverInstance.get(fullPageUrl);
+        driverSetup.getDriverInstance().get(fullPageUrl);
     }
 
-    /*protected static WebElement settingsDropdown() {
-        return getElement("#user-dd > a", DELAY, CSS);
-    }
-
-    protected static WebElement settingsDropdownSettingsItem() {
-        return getElement("#user-dd > ul > li.settings > a", DELAY, CSS);
-    }*/
-
-    protected static WebElement sideBarLeadsItem(){
+    protected WebElement sideBarLeadsItem() {
         return getElement("//li[@class='leads']", DELAY, XPATH);
     }
 
-    protected static WebElement leadStatusesTab(){
+    protected WebElement leadStatusesTab() {
         return getElement("//*[@data-toggle='lead-status']", DELAY, XPATH);
     }
 
-    protected static WebElement editStatusBtn(){
+    protected WebElement editStatusBtn() {
         return getElement("//*[@id=\"lead-status\"]/div[1]/span[1]/div//span[1]/button", DELAY, XPATH);
     }
 
-    protected static WebElement leadStatusNameFld(){
+    protected WebElement leadStatusNameFld() {
         return getElement("//*[@id=\"lead-status\"]//span[1]//fieldset/div[2]//input", DELAY, XPATH);
     }
 
-    protected static WebElement saveLeadStatusName(){
+    protected WebElement saveLeadStatusName() {
         return getElement("//div[@class='control-group']//button[@class='btn btn-primary save']", DELAY, XPATH);
     }
 }
