@@ -7,7 +7,7 @@
     <artifactId>test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <maven.surefire.plugin>2.21.0</maven.surefire.plugin>
+        <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
         <site.login>${site.login}</site.login>
         <site.password>${site.password}</site.password>
         <browserType>${browserType}</browserType>
