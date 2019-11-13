@@ -1,36 +1,50 @@
 package com.zendesk.pages;
 
 import com.zendesk.coreFunctions.ActionsSetup;
-import com.zendesk.utils.Properties;
-import org.openqa.selenium.WebElement;
+import com.zendesk.coreFunctions.DriverSetup;
+import com.zendesk.utils.PropertiesReader;
 
+import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import static com.zendesk.coreFunctions.GlobalDefinitions.DELAY;
+import static com.zendesk.coreFunctions.GlobalDefinitions.XPATH;
+
+@Component
 public class MainPage extends ActionsSetup implements Page {
     private static final String mainPagePath = "/dashboards/main";
 
-    @Override
-    public void navigateToPageUrl() {
-        String fullPageUrl = Properties.get("base.site.url").concat(mainPagePath);
-
-        driverInstance.get(fullPageUrl);
+    public MainPage() {
     }
 
-    protected static WebElement addDropdown() {
+    @Autowired
+    DriverSetup driverSetup;
+
+    @Override
+    public void navigateToPageUrl() {
+        String fullPageUrl = PropertiesReader.get("base.site.url").concat(mainPagePath);
+
+        driverSetup.getDriverInstance().get(fullPageUrl);
+    }
+
+    protected WebElement addDropdown() {
         return getElement("//*[@id=\"global-add\"]", DELAY, XPATH);
     }
 
-    protected static WebElement addDropdownItem(String item) {
+    protected WebElement addDropdownItem(String item) {
         return getElement("//span[contains(text(), '" + item + "')]", DELAY, XPATH);
     }
 
-    protected static WebElement newLeadFirstName() {
+    protected WebElement newLeadFirstName() {
         return getElement("//*[@placeholder=\"First Name\"]", DELAY, XPATH);
     }
 
-    protected static WebElement newLeadLastName() {
+    protected WebElement newLeadLastName() {
         return getElement("//*[@placeholder=\"Last Name\"]", DELAY, XPATH);
     }
 
-    protected static WebElement saveAndViewLeadBtn() {
+    protected WebElement saveAndViewLeadBtn() {
         return getElement("//button[@data-action='save-and-visit']", DELAY, XPATH);
     }
 }

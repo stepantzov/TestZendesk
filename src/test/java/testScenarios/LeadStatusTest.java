@@ -1,28 +1,35 @@
 package testScenarios;
 
-import com.zendesk.userActions.Login;
 import com.zendesk.userActions.User;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testConditions.TestConditions;
 
+@ContextConfiguration(classes = User.class)
 public class LeadStatusTest extends TestConditions {
     private String firstName = RandomStringUtils.randomAlphabetic(4);
     private String lastName = RandomStringUtils.randomAlphabetic(4);
     private String newLeadStatusName = RandomStringUtils.randomAlphabetic(5);
 
+    @Autowired
+    User user;
+
     @Test
-    public void leadStatusTest() {
-        Login.logWithCorrectTrialCredentials();
-        User.createAndViewNewLead(firstName, lastName);
+    public void leadStatusE2ETest() {
+        user.logToZendeskWithCorrectCredentials();
 
-        Assert.assertTrue(User.getCreatedLeadTitle().contains(firstName + " " + lastName));
-        Assert.assertTrue(User.verifyIfLeadStatusCorrect(), "Incorrect Lead Status Displayed.");
+        user.createAndViewNewLead(firstName, lastName);
 
-        User.changeTheExistingLeadStatus(newLeadStatusName);
-        Assert.assertTrue(User.verifyIfChangedLeadStatusCorrect(newLeadStatusName));
+        Assert.assertTrue(user.getCreatedLeadTitle().contains(firstName + " " + lastName));
+        Assert.assertTrue(user.verifyIfLeadStatusCorrect(), "Incorrect Lead Status Displayed.");
 
-        User.changeTheExistingLeadStatus("New");
+        user.changeTheExistingLeadStatus(newLeadStatusName);
+        Assert.assertTrue(user.verifyIfChangedLeadStatusCorrect(newLeadStatusName));
+
+        user.changeTheExistingLeadStatus("New");
     }
 }

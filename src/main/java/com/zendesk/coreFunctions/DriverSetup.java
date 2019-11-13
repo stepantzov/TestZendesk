@@ -7,9 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.context.annotation.Configuration;
 
-public class DriverSetup extends GlobalDefinitions {
-    protected static WebDriver driverInstance = null;
+@Configuration
+public class DriverSetup {
+    private static WebDriver driverInstance = null;
 
     public static void initDriver(String url, String browserType) {
         if (driverInstance == null) {
@@ -56,5 +58,13 @@ public class DriverSetup extends GlobalDefinitions {
             driverInstance.manage().window().maximize();
             driverInstance.navigate().to(url);
         }
+    }
+
+    public WebDriver getDriverInstance() {
+        return driverInstance;
+    }
+
+    public void setDriverInstance(WebDriver driverInstance) {
+        this.driverInstance = driverInstance;
     }
 }

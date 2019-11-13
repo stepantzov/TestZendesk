@@ -1,29 +1,24 @@
 package com.zendesk.pageActions;
 
 import com.zendesk.pages.SettingsPage;
-import org.openqa.selenium.WebDriver;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SettingsPageActions extends SettingsPage {
-    private static WebDriver driver;
-
-    public SettingsPageActions(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public static void openLeadStatusesTab() {
+    public void openLeadStatusesTab() {
         elementClick(leadStatusesTab());
     }
 
-    public static void pressEditExistingLeadStatus() {
+    public void pressEditExistingLeadStatus() {
         elementClick(editStatusBtn());
     }
 
-    public static void fillNewLeadStatusName(String newStatusName) {
+    public void fillNewLeadStatusName(String newStatusName) {
         leadStatusNameFld().clear();
         sendKeys(leadStatusNameFld(), newStatusName);
     }
 
-    public static void pressSaveNewLeadStatusName(){
+    public void pressSaveNewLeadStatusName() {
         elementClick(saveLeadStatusName());
     }
 }
