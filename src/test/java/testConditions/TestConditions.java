@@ -1,6 +1,7 @@
 package testConditions;
 
 import com.zendesk.coreFunctions.DriverSetup;
+import com.zendesk.utils.AllureEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -31,5 +32,7 @@ public class TestConditions extends AbstractTestNGSpringContextTests {
 
         driverSetup.getDriverInstance().quit();
         driverSetup.setDriverInstance(null);
+
+        AllureEnvironment.create();
     }
 }
