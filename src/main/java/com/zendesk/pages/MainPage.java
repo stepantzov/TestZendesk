@@ -15,9 +15,6 @@ import static com.zendesk.coreFunctions.GlobalDefinitions.XPATH;
 public class MainPage extends ActionsSetup implements Page {
     private static final String mainPagePath = "/dashboards/main";
 
-    public MainPage() {
-    }
-
     @Autowired
     DriverSetup driverSetup;
 

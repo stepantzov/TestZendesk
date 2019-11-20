@@ -14,9 +14,6 @@ import static com.zendesk.coreFunctions.GlobalDefinitions.XPATH;
 public class LoginPage extends ActionsSetup implements Page {
     private static final String loginPath = "/users/login";
 
-    public LoginPage() {
-    }
-
     @Autowired
     DriverSetup driverSetup;
 
