@@ -22,9 +22,11 @@ Current test framework allow user to run end-to-end scenario
 - Use standard maven commands to run different maven lifecycle if needed;
 - To build the project and run tests:
     **mvn package**
-- To run tests separately please use: 
+- To run tests separately please use:
+
     **test -Dsite.login=validUserEmail -Dsite.password=vaidUserPassword -DbrowserType=browsertype**,
-    where validUserEmail, vaidUserPassword - valid user credentials for ZendeskSell site; browsertype = chrome, or firefox, or explorer, or phantomjs; 
+
+where validUserEmail, vaidUserPassword - valid user credentials for ZendeskSell site; browsertype = chrome, or firefox, or explorer, or phantomjs; 
 - To run tests inside IntelliJ use the  **testng.xml** configuration placed at project classpath;
 
 
