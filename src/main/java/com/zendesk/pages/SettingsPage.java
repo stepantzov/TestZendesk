@@ -15,9 +15,6 @@ public class SettingsPage extends ActionsSetup implements Page {
     private static final String settingsPath = "/settings";
     private static final String leadsSettingPath = "/leads";
 
-    public SettingsPage() {
-    }
-
     @Autowired
     DriverSetup driverSetup;
 

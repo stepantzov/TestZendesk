@@ -13,9 +13,6 @@ import static com.zendesk.coreFunctions.GlobalDefinitions.*;
 public class LeadPage extends ActionsSetup implements Page {
     private static final String leadPagePath = "/working/leads";
 
-    public LeadPage() {
-    }
-
     @Autowired
     DriverSetup driverSetup;
 
